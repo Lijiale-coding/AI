@@ -50,17 +50,20 @@ def predict_tesla(jours_futurs=5, period="1y"):
         conseil = "⚖️ Tendance neutre – Soyez prudent, observez le marché."
     # 画图并转为base64嵌入网页
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.plot(df['Date'], df['Clôture'], label='历史收盘价', color='black')
-    ax.plot(df['Date'], df['SMA_5'], label='SMA 5日', linestyle='--', color='blue')
-    ax.plot(df['Date'], df['SMA_10'], label='SMA 10日', linestyle='--', color='green')
-    ax.plot(resultats['Date'], resultats['Prix_prédit (€)'], label='AI预测', linestyle='-', marker='o', color='orange')
-    ax.legend(); ax.set_title("Tesla价格预测与技术指标"); ax.grid(True)
+    ax.plot(df['Date'], df['Clôture'], label="Cours de clôture", color='black')
+    ax.plot(df['Date'], df['SMA_5'], label='SMA 5 jours', linestyle='--', color='blue')
+    ax.plot(df['Date'], df['SMA_10'], label='SMA 10 jours', linestyle='--', color='green')
+    ax.plot(resultats['Date'], resultats["Prix_prédit (€)"], label="Prédiction IA", linestyle='-', marker='o', color='orange')
+    ax.legend()
+    ax.set_title("Prévision du cours Tesla et indicateurs techniques")
+    ax.grid(True)
     buf = io.BytesIO()
     plt.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     img_base64 = base64.b64encode(buf.read()).decode("utf-8")
     plt.close(fig)
     return resultats, conseil, img_base64
+
 
 @app.get("/", response_class=HTMLResponse)
 async def main(request: Request):
