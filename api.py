@@ -1,21 +1,21 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import yfinance as yf
 import numpy as np
 import joblib
 
 app = FastAPI()
-
-# 1. 加载模型
 modele = joblib.load("modele_xgb.joblib")
 
-# 2. 定义输入数据结构
-class InputData(BaseModel):
-    sma_5: float
-    sma_10: float
+class PredictInput(BaseModel):
+    ticker: str = "TSLA"
+    jours: int = 10   # 取最近多少天数据
 
-# 3. 路由
-@app.post("/predict")
-def predict(data: InputData):
-    X = np.array([[data.sma_5, data.sma_10]])
+@app.post("/predict_auto")
+def predict_auto(data: PredictInput):
+    df = yf.download(data.ticker, period=f"{data.jours}d")
+    sma_5 = df["Close"].rolling(window=5).mean().iloc[-1]
+    sma_10 = df["Close"].rolling(window=10).mean().iloc[-1]
+    X = np.array([[sma_5, sma_10]])
     pred = float(modele.predict(X)[0])
-    return {"prediction": round(pred, 2)}
+    return {"prediction": round(pred, 2), "sma_5": round(sma_5,2), "sma_10": round(sma_10,2)}
