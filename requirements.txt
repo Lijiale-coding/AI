@@ -3,3 +3,7 @@ uvicorn
 joblib
 numpy
 pydantic
+pandas
+matplotlib
+scikit-learn
+xgboost
