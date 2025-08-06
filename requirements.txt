@@ -1,4 +1,5 @@
-pandas
-matplotlib
-scikit-learn
-xgboost
+fastapi
+uvicorn
+joblib
+numpy
+pydantic
