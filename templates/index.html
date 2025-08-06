@@ -1,27 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Tesla AI预测演示</title>
+    <meta charset="UTF-8">
+    <title>Prédiction IA du cours Tesla</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: #f8fafc;
+            color: #232946;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 580px;
+            background: #fff;
+            margin: 48px auto 0 auto;
+            padding: 32px 36px 30px 36px;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #23294615;
+        }
+        h2 {
+            color: #232946;
+            margin-bottom: 16px;
+        }
+        form {
+            margin-bottom: 28px;
+            padding: 18px 14px;
+            background: #f4f6fb;
+            border-radius: 10px;
+        }
+        label {
+            display: inline-block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        input[type="number"], select {
+            padding: 7px 10px;
+            border: 1.2px solid #b8c1ec;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            margin-right: 12px;
+            background: #f8fafc;
+        }
+        input[type="submit"] {
+            background: #b8c1ec;
+            color: #232946;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #b8c1ec55;
+            transition: background 0.2s;
+        }
+        input[type="submit"]:hover {
+            background: #a5afd7;
+        }
+        h3 {
+            color: #232946;
+            margin-top: 26px;
+        }
+        .conseil {
+            color: #16a34a;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        img {
+            margin-top: 14px;
+            max-width: 100%;
+            border-radius: 9px;
+            box-shadow: 0 1px 8px #b8c1ec44;
+        }
+        table {
+            margin-top: 12px;
+            border-collapse: collapse;
+            width: 100%;
+            background: #f4f6fb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 1px solid #b8c1ec33;
+        }
+        th, td {
+            padding: 9px 8px;
+            text-align: center;
+        }
+        th {
+            background: #e5eaf7;
+        }
+    </style>
 </head>
 <body>
-    <h2>AI 预测 Tesla 股票未来价格</h2>
-    <form method="post">
-        预测未来天数: <input name="jours_futurs" type="number" value="5" min="1" max="10"><br>
-        数据周期:
-        <select name="period">
-            <option value="1y">1年</option>
-            <option value="6mo">6月</option>
-            <option value="3mo">3月</option>
-        </select><br>
-        <input type="submit" value="预测">
-    </form>
-    {% if resultats %}
-        <h3>预测结果表</h3>
-        {{ resultats | safe }}
-        <h3>操作建议</h3>
-        <div style="color:green; font-weight:bold;">{{ conseil }}</div>
-        <h3>走势图</h3>
-        <img src="data:image/png;base64,{{ img_data }}" />
-    {% endif %}
+    <div class="container">
+        <h2>🔮 Prédiction IA du cours Tesla</h2>
+        <form method="post">
+            <label>Jours à prédire :</label>
+            <input name="jours_futurs" type="number" value="5" min="1" max="10">
+            <br>
+            <label>Période de données :</label>
+            <select name="period">
+                <option value="1y">1 an</option>
+                <option value="6mo">6 mois</option>
+                <option value="3mo">3 mois</option>
+            </select>
+            <br>
+            <input type="submit" value="Lancer la prédiction">
+        </form>
+        {% if resultats %}
+            <h3>Tableau des prévisions</h3>
+            {{ resultats | safe }}
+            <h3>Conseil IA</h3>
+            <div class="conseil">{{ conseil }}</div>
+            <h3>Graphique</h3>
+            <img src="data:image/png;base64,{{ img_data }}" />
+        {% endif %}
+    </div>
 </body>
 </html>
