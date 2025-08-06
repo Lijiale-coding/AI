@@ -8,5 +8,3 @@ matplotlib
 scikit-learn
 xgboost
 yfinance
-io
-base64
