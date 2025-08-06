@@ -7,7 +7,7 @@ import yfinance as yf
 
 # 1. Génération des données simulées
 
-data = yf.download('TSLA', period='1y')  # 下载最近1年的TSLA数据
+data = yf.download('TSLA', period='1y')  
 df = data[['Close']].reset_index().rename(columns={'Close': 'Clôture', 'Date': 'Date'})
 
 
