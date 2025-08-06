@@ -9,3 +9,4 @@ scikit-learn
 xgboost
 yfinance
 jinja2
+python-multipart
